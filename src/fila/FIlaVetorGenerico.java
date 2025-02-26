@@ -1,23 +1,23 @@
 package fila;
 
-public class FIlaVetor {
-	private int[] elementos;
+public class FIlaVetorGenerico<E> {
+	private E[] elementos;
 	private int capacidade; // Tamanho máximo da fila
 	private int inicio; // Índice do primeiro elemento
 	private int fim; // Índice do último elemento
 	private int tamanho; // Quantidade de elementos na fila
 
 	// Construtor: cria uma fila com a capacidade fornecida
-	public FIlaVetor(int capacidade) {
-	        this.capacidade = capacidade;
-	        this.elementos = new int[capacidade];
-	        this.inicio = 0;
-	        this.fim = -1;
-	        this.tamanho = 0;
-	    }
+	public FIlaVetorGenerico(int capacidade) {
+		this.capacidade = capacidade;
+		this.elementos = (E[]) new Object[capacidade];
+		this.inicio = 0;
+		this.fim = -1;
+		this.tamanho = 0;
+	}
 
 	// 1. insert ou enqueue
-	public void enqueue(int valor) {
+	public void enqueue(E valor) {
 		// Verifica se a fila está cheia
 		if (tamanho == capacidade) {
 			System.out.println("A fila está cheia! Não é possível inserir " + valor);
@@ -30,13 +30,13 @@ public class FIlaVetor {
 	}
 
 	// 2. remove ou dequeue
-	public int dequeue() {
+	public E dequeue() {
 		// Verifica se a fila está vazia
 		if (empty()) {
 			System.out.println("A fila está vazia! Não há elemento para remover.");
-			return -1; // ou lance uma exceção, por exemplo: throw new RuntimeException("Fila vazia");
+			return null; // ou lance uma exceção, por exemplo: throw new RuntimeException("Fila vazia");
 		}
-		int valorRemovido = elementos[inicio];
+		E valorRemovido = elementos[inicio];
 		// Incrementa 'inicio' de forma circular
 		inicio = (inicio + 1) % capacidade;
 		tamanho--;
@@ -54,34 +54,36 @@ public class FIlaVetor {
 	}
 
 	// 5. front - retorna o primeiro item da fila (sem removê-lo)
-	public int front() {
+	public E front() {
 		// Verifica se a fila está vazia
 		if (empty()) {
 			System.out.println("A fila está vazia! Não há elemento no início.");
-			return -1; // ou lance uma exceção
+			return null; // ou lance uma exceção
 		}
 		return elementos[inicio];
 	}
 
 	// Exemplo de uso
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		// Cria uma fila com capacidade para 5 elementos
-		FIlaVetor fila = new FIlaVetor(5);
+		FIlaVetorGenerico<Pessoa> fila = new FIlaVetorGenerico<Pessoa>(5);
 
 		System.out.println("Fila está vazia? " + fila.empty());
 
-		fila.enqueue(10);
-		fila.enqueue(20);
-		fila.enqueue(30);
+		fila.enqueue(new Pessoa("A"));
+		fila.enqueue(new Pessoa("B"));
+		fila.enqueue(new Pessoa("C"));
+		fila.enqueue(new Pessoa("D"));
+		fila.enqueue(new Pessoa("E"));
 		System.out.println("Tamanho atual da fila: " + fila.size());
-		System.out.println("Elemento (front): " + fila.front());
+		System.out.println("Elemento (front): " + fila.front().nome);
 
-		int removido = fila.dequeue();
-		System.out.println("Elemento removido (dequeue): " + removido);
+		Pessoa removido = fila.dequeue();
+		System.out.println("Elemento removido (dequeue): " + removido.nome);
 
-		System.out.println("Elemento (front) após remoção: " + fila.front());
+		System.out.println("Elemento (front) após remoção: " + fila.front().nome);
 		System.out.println("Tamanho atual da fila: " + fila.size());
 
 		System.out.println("Fila está vazia? " + fila.empty());
-	}**/
+	}
 }
