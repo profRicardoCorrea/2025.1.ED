@@ -1,4 +1,4 @@
-package aula_recursao;
+package recursao;
 
 public class FibonacciRecursivo {
 	public static int fibonacciRecursivo(int n) {
