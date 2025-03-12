@@ -7,6 +7,6 @@ public class FibonacciRecursivo {
     }
 
     public static void main(String[] args) {
-        System.out.println(fibonacciRecursivo(10)); // 55
+        System.out.println(fibonacciRecursivo(55)); // 55
     }
 }
